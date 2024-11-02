@@ -1,62 +1,56 @@
-import { Layout, Table, Button, Input, Form, Space } from 'antd';
-import { PlusOutlined, SearchOutlined, EditOutlined, DeleteOutlined, DollarOutlined } from '@ant-design/icons';
-import React from 'react';
+import { Layout, Table,Input, Form,message } from 'antd';
+import React ,{useEffect,useState}from 'react';
 import '../App.css';
+import api from '../services/cuenta'; // Axios configurado con baseURL
+
 
 
 const { Sider, Content } = Layout;
 
-const dataSource = [
-  { key: '1', codigo: '1001', cuenta: 'Caja' },
-  { key: '2', codigo: '1002', cuenta: 'Banco' },
-];
-
-const columns = [
-  {
-    title: 'Código',
-    dataIndex: 'codigo',
-    key: 'codigo',
-  },
-  {
-    title: 'Cuenta',
-    dataIndex: 'cuenta',
-    key: 'cuenta',
-  },
-];
-
 const Catalogo = () => {
+  const [cuentas, setCuentas] = useState([]); 
+  const [loading, setLoading] = useState(true); // Estado de carga
+
+  // Función para obtener datos del backend
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await api.get('/cuentas'); // Petición al backend
+        console.log(cuentas)
+        setCuentas(response.data);       
+        
+      } catch (error) {
+        message.error('Error al cargar los datos');
+      } finally {
+        setLoading(false); 
+      }
+    };
+    
+    fetchData(); // Llamar a la función al montar el componente
+  }, []);
+
+  const columns = [
+    {
+      title: 'Código',
+      dataIndex: 'codigo',
+      key: 'codigo',
+    },
+    {
+      title: 'Cuenta',
+      dataIndex: 'nombre',
+      key: 'nombre',
+    },
+  ];
+
   return (
     <Layout style={{ height: '100vh' }}>
+        
         {/* Contenido principal */}
-      <Layout>
-        <Content className="content">
+        <Content >
           <h1 style={{ textAlign: 'center' }}>Catálogo de Cuentas</h1>
-          <Table dataSource={dataSource} columns={columns} pagination={false} />
-          <div className="add-account">
-            <Button type="primary" shape="round" icon={<PlusOutlined />} size="large">
-              Agregar Cuenta
-            </Button>
-          </div>
-        </Content>
-      </Layout>
-       {/* Panel lateral */}
-       <Sider width={300} style={{padding:'20px'}} className="admin-cuentas">
-        <div className="sider-header">
-          <span>Administración de Cuentas</span>
-        </div>
-        <Form layout="vertical" className="sider-form">
-          <Form.Item label={<label className='form-label'>Nombre</label>}>
-            <Input placeholder="Buscar por nombre" prefix={<SearchOutlined />} />
-          </Form.Item>
-          <Form.Item label={<label className='form-label'>Codigo</label>}>
-            <Input placeholder="Buscar por código" prefix={<SearchOutlined />} />
-          </Form.Item>
-          <Space style={{ marginTop: '10px' }}>
-            <Button icon={<EditOutlined />} />
-            <Button icon={<DeleteOutlined />} danger />
-          </Space>
-        </Form>
-      </Sider>
+          <Table dataSource={cuentas} columns={columns} pagination={false} />
+        </Content>    
+      
     </Layout>
     
   );

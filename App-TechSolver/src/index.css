@@ -1,6 +1,7 @@
 
-html, body {
-background-color: #fff;
+html, body ,#root{
+ background-color: #fff;
   margin: 0;
+  overflow-x: hidden;
 }
 
