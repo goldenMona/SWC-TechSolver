@@ -48,11 +48,12 @@ border-radius: 30%;
 .sider-header{
   margin: 2rem;
   color: #fff;
-  font-size: 20px;
+  font-size: 24px;
 }
 .form-label{
   color: #fff;
   font-size: 16px;
+  margin-left: 16px;
 }
 .saldo{
   font-size: 15px;
@@ -63,4 +64,16 @@ border-radius: 30%;
   color: black;
   margin: 0;
   padding: 5rem;
+}
+.headerList{
+ font-size: larger;
+ font-weight: bold;
+
+}
+
+.pasos-label{
+  color:#fff;
+  font-size: 20px;
+  margin: 14px;
+  text-align: left;
 }

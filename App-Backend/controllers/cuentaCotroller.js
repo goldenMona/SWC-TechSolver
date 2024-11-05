@@ -48,4 +48,30 @@ const obtenerCuentas = async (req, res) => {
     }
   };
 
-  module.exports = { obtenerCuentas,agregarTransaccion};
+  const obtenerTotalGlobal = async (req, res) => {
+    try {
+      const resultado = await Cuenta.aggregate([
+        { $unwind: "$cuentaT" },
+        {
+          $group: {
+            _id: null,
+            totalDebe: { $sum: "$cuentaT.debe" },
+            totalHaber: { $sum: "$cuentaT.haber" },
+          },
+        },
+      ]);
+  
+      if (resultado.length > 0) {
+        res.status(200).json({ totalDebe: resultado[0].totalDebe, totalHaber: resultado[0].totalHaber });
+      } else {
+        res.status(200).json({ totalDebe: 0, totalHaber: 0 });
+      }
+    } catch (error) {
+      console.error("Error al calcular el total global:", error);
+      res.status(500).json({ error: "Error al calcular el total global" });
+    }
+  };
+  
+  
+
+  module.exports = { obtenerCuentas,agregarTransaccion,obtenerTotalGlobal};

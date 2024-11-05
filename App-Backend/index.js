@@ -3,8 +3,8 @@ const app = express();
 const cors = require('cors');
 const mongoose = require('mongoose');
 const dontenv = require('dotenv');
-const {obtenerCuentas,agregarTransaccion}= require('./controllers/cuentaCotroller');
-
+const {obtenerCuentas,agregarTransaccion,obtenerTotalGlobal}= require('./controllers/cuentaCotroller');
+const {obtenerEmpleados}=require('./controllers/empleadoController')
 
 dontenv.config({path:'./config.env'})
 
@@ -16,7 +16,10 @@ app.use(express.json());
 app.use(cors()); 
 
 app.get('/api/cuentas', obtenerCuentas);
+app.get('/api/cuentas/total',obtenerTotalGlobal);
 app.post('/api/cuentas/:codigo/transaccion', agregarTransaccion);
+app.get('/api/empleados',obtenerEmpleados);
+
 
 const PORT = 3001;
 app.listen(PORT, () => {

@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 /* eslint-disable react/prop-types */
 import React, { useState, useEffect } from 'react';
-import { Layout, Button, Space, Typography, Divider, Form, InputNumber, Select ,message} from 'antd';
+import { Layout, Button, Typography, Divider, Form, InputNumber, Select ,message,Alert} from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import cuentaService from '../services/cuenta';
 
@@ -10,17 +10,17 @@ import cuentaService from '../services/cuenta';
 const { Content } = Layout;
 const { Title } = Typography;
 
-const CuentaT = ({ cuenta , actualizar}) => {
+const CuentaT = ({ cuenta , actualizar,total}) => {
 
   const [form] = Form.useForm();
   const [saldo, setSaldo] = useState(0);
   const [naturaleza, setNaturaleza] = useState('Deudor');
   const [monto,setMonto]=useState(null);
   const [tipo,setTipo]=useState(null);
-  const [totalDebe,setTotalDebe]=useState(0);
-  
+  const [debeVal,setDebeVal]=useState(false);
+  const [haberVal,setHaberVal]=useState(false);
 
-
+ 
  
   useEffect(() => {
     const calcularSaldo = () => {
@@ -34,22 +34,31 @@ const CuentaT = ({ cuenta , actualizar}) => {
         nuevoSaldo *= -1;
       }
       setSaldo(nuevoSaldo);
-
     };
-
-   
+    
+    const validacion=()=>{
+      if (total.totalDebe > total.totalHaber) {
   
-
+        setHaberVal(false)
+        setDebeVal(true)
+      } else if (total.totalDebe < total.totalHaber) {
+      
+        setDebeVal(false)
+        setHaberVal(true)
+   
+      } else {
+        setDebeVal(false)
+        setHaberVal(false)
+      }
+    }
+    validacion();
     calcularSaldo();
   }, [cuenta]);
 
- //console.log(cuenta)
+
   const transaccionesDebe = cuenta.cuentaT.flatMap(trasaccion => trasaccion.debe) 
   const transaccionesHaber = cuenta.cuentaT.flatMap(trasaccion => trasaccion.haber)
- 
 
-
-  
   const renderColumn = (data) => (
     <div>
       {data.map((transaccion, index) => (
@@ -78,6 +87,7 @@ const CuentaT = ({ cuenta , actualizar}) => {
   
       console.log('Transacción enviada correctamente');
       message.success('Transacción agregada correctamente');
+    
       form.resetFields(); // Limpiar formulario
   
   } catch (error) {
@@ -86,9 +96,11 @@ const CuentaT = ({ cuenta , actualizar}) => {
     message.error('Error al agregar la transacción');
   }
   
-  
+  actualizar();
  
 };
+
+
 
 const changeMonto = (value) => {
   console.log(value)
@@ -102,7 +114,6 @@ const changeTipo = (value) => {
   setTipo(value)
   console.log(monto)
 }
-
 
   return (
     <Layout style={{ padding: '16px', margin: '0px', background: '#fff', marginBottom: '5px', minWidth: '275px' }}>
@@ -120,10 +131,21 @@ const changeTipo = (value) => {
                 required: true, message:'Debe de seleccionar una naturaleza'
               },
             ]} >
-            <Select value={tipo} onChange={changeTipo}>
-              <Select.Option value="debe"  >Debe</Select.Option>
-              <Select.Option value="haber">Haber</Select.Option>
-            </Select>
+            <Select value={tipo} onChange={changeTipo}
+            options={[
+              {
+                value: 'debe',
+                label: 'Debe',
+                disabled:debeVal,
+              },
+              {
+                value: 'haber',
+                label: 'Haber',
+                disabled:haberVal,
+              },
+             
+            ]}
+            />
           </Form.Item>
           <Form.Item>
             <Button variant="solid" color="default" shape="round" htmlType="submit" size='medium' icon={<PlusOutlined />}>Agregar</Button>

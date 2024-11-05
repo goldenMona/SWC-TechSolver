@@ -1,0 +1,70 @@
+{
+  "hash": "f8467d02",
+  "configHash": "fbb1bd8e",
+  "lockfileHash": "0bb64ab4",
+  "browserHash": "10681707",
+  "optimized": {
+    "react": {
+      "src": "../../node_modules/react/index.js",
+      "file": "react.js",
+      "fileHash": "9eef19fa",
+      "needsInterop": true
+    },
+    "react-dom/client": {
+      "src": "../../node_modules/react-dom/client.js",
+      "file": "react-dom_client.js",
+      "fileHash": "4aa39eaf",
+      "needsInterop": true
+    },
+    "react-router-dom": {
+      "src": "../../node_modules/react-router-dom/dist/index.js",
+      "file": "react-router-dom.js",
+      "fileHash": "a7142bea",
+      "needsInterop": false
+    },
+    "antd": {
+      "src": "../../node_modules/antd/es/index.js",
+      "file": "antd.js",
+      "fileHash": "d5ac7aa6",
+      "needsInterop": false
+    },
+    "@ant-design/icons": {
+      "src": "../../node_modules/@ant-design/icons/es/index.js",
+      "file": "@ant-design_icons.js",
+      "fileHash": "7e8bdbb8",
+      "needsInterop": false
+    },
+    "axios": {
+      "src": "../../node_modules/axios/index.js",
+      "file": "axios.js",
+      "fileHash": "ebdf8774",
+      "needsInterop": false
+    },
+    "antd/es/menu/MenuItem": {
+      "src": "../../node_modules/antd/es/menu/MenuItem.js",
+      "file": "antd_es_menu_MenuItem.js",
+      "fileHash": "97981036",
+      "needsInterop": false
+    }
+  },
+  "chunks": {
+    "chunk-VQML2HFS": {
+      "file": "chunk-VQML2HFS.js"
+    },
+    "chunk-XAXUTKKF": {
+      "file": "chunk-XAXUTKKF.js"
+    },
+    "chunk-TNTPHDQH": {
+      "file": "chunk-TNTPHDQH.js"
+    },
+    "chunk-PKBEAB2W": {
+      "file": "chunk-PKBEAB2W.js"
+    },
+    "chunk-32E4H3EV": {
+      "file": "chunk-32E4H3EV.js"
+    },
+    "chunk-G3PMV62Z": {
+      "file": "chunk-G3PMV62Z.js"
+    }
+  }
+}

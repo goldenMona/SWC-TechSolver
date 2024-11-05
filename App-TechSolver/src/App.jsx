@@ -10,7 +10,7 @@ import Balance from './Views/Balance';
 import Transacciones from './Views/Transacciones';
 import Costeo from './Views/Costeo';
 import Catalogo from './Views/Catalogo';
-import axios from 'axios';
+
 
 
 

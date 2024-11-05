@@ -26,7 +26,7 @@ const Catalogo = () => {
       }
     };
     
-    fetchData(); // Llamar a la función al montar el componente
+    fetchData();
   }, []);
 
   const columns = [
@@ -43,12 +43,12 @@ const Catalogo = () => {
   ];
 
   return (
-    <Layout style={{ height: '100vh' }}>
+    <Layout style={{ height: 'auto' ,overflow:'hidden'}}>
         
         {/* Contenido principal */}
-        <Content >
+        <Content style={{ margin: '30px' ,alignItems:'center',padding:'50px'}}>
           <h1 style={{ textAlign: 'center' }}>Catálogo de Cuentas</h1>
-          <Table dataSource={cuentas} columns={columns} pagination={false} />
+          <Table dataSource={cuentas}  columns={columns} pagination={false} size='small' />
         </Content>    
       
     </Layout>
